@@ -3,7 +3,6 @@
 namespace BinOp
 {
     using System;
-    using System.Collections.Generic;
     using PEG;
 
     class Program

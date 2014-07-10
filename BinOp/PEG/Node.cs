@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace BinOp.PEG
 {
     using System;
@@ -27,6 +29,14 @@ namespace BinOp.PEG
         public IReadOnlyList<T> Children
         {
             get { return mChildren; }
+        }
+
+        /// <summary>
+        /// Returns its only child
+        /// </summary>
+        public T Child
+        {
+            get { return mChildren.Single(); }
         }
 
         /// <summary>

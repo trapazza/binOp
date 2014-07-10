@@ -74,8 +74,8 @@ namespace BinOp.PEG
             var expr = choice + s + eol;
             var astExpr = Rule.Ast( "expr", expr );
 
-            var def = Rule.Ast("def", identifier + s + '=' + s + astExpr);
-            var prd = Rule.Ast("prd", identifier + s + "=>" + s + astExpr);
+            var def = Rule.Ast( "def", identifier + s + '=' + s + astExpr );
+            var prd = Rule.Ast( "prd", identifier + s + "=>" + s + astExpr );
 
             // start rule
             Rule = Rule.ZeroPlus( ws + (def|prd) ) + ws;

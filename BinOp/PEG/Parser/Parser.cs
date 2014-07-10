@@ -1,7 +1,6 @@
 ﻿namespace BinOp.PEG
 {
     using System;
-    using System.Diagnostics;
     using System.IO;
 
     /// <summary>
@@ -42,8 +41,8 @@
         /// </summary>
         public AstNode Parse( string _input )
         {
-            var file1 = new StreamWriter( File.Create("file1.txt") );
-            var file2 = new StreamWriter(File.Create("file2.txt"));
+            var file1 = new StreamWriter( File.Create( "file1.txt" ) );
+            var file2 = new StreamWriter( File.Create( "file2.txt" ) );
             //TestGrammar(mGrammar, _input, 120);
             var ast = mGrammar.Parse( _input );
             if( ast != null )
@@ -52,7 +51,7 @@
                 PrintAstToFile(file1, ast, _input);
                 Console.WriteLine("Everything is alright");
 
-                for( var n = 0; n < 12; ++n )
+                for( var n = 0; n < 2; ++n )
                 {
                     Console.WriteLine("################################################################################################");
                     Console.WriteLine("################################################################################################");
