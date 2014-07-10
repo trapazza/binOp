@@ -1,0 +1,110 @@
+﻿// quotes
+sq = "'"
+dq = '"'
+
+// single line and block comment delimiters
+slc = "//"
+bcs = "/*"
+bce = "*/"
+
+// left/right parenthesis/brackets
+lp = '(' s
+rp = ')' s
+
+// symbol and ast operators
+defOp  = '=' s
+prdOp  = "=>" s
+astOp  = '^' s
+muteOp = '~' s
+
+// operator symbols
+orOp  = [|/] s
+optOp = '?' s
+zplOp = '*' s
+oplOp = '+' s
+andOp = '&' s
+notOp = '!' s
+
+// space
+s  = ([ \t] | blockComment)*
+ws = ([ \t\r\n] | comment)*
+
+// end markers
+eol = "\r\n" | [\n\r]
+eos = (^lineComment | eol | !.)
+
+// comments
+lineComment  = slc (!eol.)* eol
+blockComment = bcs (!bce.)* bce
+comment      = ^lineComment | ^blockComment
+
+// define typical digit and letter ranges
+digit      = [0-9]
+letter     = [a-zA-Z]
+
+// range of valid input characters (ascii 32 to 126 both included plus tabs and line breaks)
+ascii = [ -~\t\n]
+
+// literal  numbers string and characters
+escaped    = '\\' [0abfnrtv\\\"\']
+char       = (escaped | ascii)
+str        = (!dq.)*
+litChar    = sq ^char sq
+litStr     = dq ^str dq
+number     = digit+ !letter
+literal    = ^number | litChar | litStr
+
+// identifiers
+idFirstChar = letter | '_'
+idNextChar  = idFirstChar | digit
+ident       = idFirstChar idNextChar*
+
+
+// basic expressions
+anyChar     = '.'
+range       = ^char '-' ^char
+charset     = '[' (!']' (^range | ^char))* ']'
+
+// charset
+subExpr = lp expr rp
+
+// special commands
+command = ~'-' ("stop" | "brk") ~s
+
+// special functions
+funcName = "brk" | "color"
+
+funcArg = literal
+argList = funcArg? (',' s funcArg)* s
+func = ^funcName s lp expr (',' s)? ^argList rp
+
+primary = (subExpr | ^func | ^command | ^charset | literal | ^ident | ^anyChar) s
+
+// suffixed expressions
+opt        = primary optOp
+zpl        = primary zplOp
+opl        = primary oplOp
+suffixExpr = ^opl | ^zpl | ^opt | primary
+
+// prefixed expressions
+and        = andOp suffixExpr
+not        = notOp suffixExpr
+ast        = astOp suffixExpr
+mute       = muteOp suffixExpr
+prefixExpr = ^ast | ^mute | ^and | ^not | suffixExpr
+
+//sequence   = prefixExpr+
+//choice     = ^sequence (orOp ^sequence)*
+sequence     => prefixExpr+
+choice       => sequence (orOp sequence)*
+expr         = choice
+
+// statements can be either symbols or AST nodes
+def = ^ident s defOp ^expr
+prd = color( (^ident s prdOp ^expr), "Yellow", "Blue" )
+
+// a statement is either a symbol or an AST definition, followed by an end-of-statement 
+statement = (^def | ^prd) eos
+
+// start rule
+start = (ws statement)* ws !.

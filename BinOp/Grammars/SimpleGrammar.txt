@@ -1,0 +1,3 @@
+﻿greet => "hi"
+start = greet greet greet
+...

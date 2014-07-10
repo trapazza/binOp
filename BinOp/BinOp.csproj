@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A368E5E8-C8C4-443A-8CFC-C9EC6FE01942}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BinOp</RootNamespace>
+    <AssemblyName>BinOp</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="PEG\Utils\AnalysisState.cs" />
+    <Compile Include="PEG\Utils\AstNode.cs" />
+    <Compile Include="PEG\Utils\AstNodeFlags.cs" />
+    <Compile Include="PEG\Grammar.cs" />
+    <Compile Include="Grammars\JsonGrammar.cs" />
+    <Compile Include="PEG\Parser\MemoTable.cs" />
+    <Compile Include="PEG\Node.cs" />
+    <Compile Include="PEG\Parser\Parser.cs" />
+    <Compile Include="PEG\Parser\ParseState.cs" />
+    <Compile Include="PEG\Analyzer\PegAnalyzer.cs" />
+    <Compile Include="Grammars\PegGrammar.cs" />
+    <Compile Include="PEG\Parser\Rules\FRefRule.cs" />
+    <Compile Include="PEG\Parser\Rules\AstNodeRule.cs" />
+    <Compile Include="PEG\Parser\Rules\CommentRule.cs" />
+    <Compile Include="PEG\Parser\Rules\Leaf\MatchCharset.cs" />
+    <Compile Include="PEG\Parser\Rules\MatchChoice.cs" />
+    <Compile Include="PEG\Parser\Rules\DebugBreakRule.cs" />
+    <Compile Include="PEG\Parser\Rules\Leaf\MatchAnyChar.cs" />
+    <Compile Include="PEG\Parser\Rules\Leaf\MatchCharRange.cs" />
+    <Compile Include="PEG\Parser\Rules\Leaf\MatchDigitRule.cs" />
+    <Compile Include="PEG\Parser\Rules\Leaf\MatchLetterRule.cs" />
+    <Compile Include="PEG\Parser\Rules\NotRule.cs" />
+    <Compile Include="PEG\Parser\Rules\MatchOneOrMore.cs" />
+    <Compile Include="PEG\Parser\Rules\Rule.cs" />
+    <Compile Include="PEG\Parser\Rules\Leaf\MatchChar.cs" />
+    <Compile Include="PEG\Parser\Rules\Leaf\MatchStringRule.cs" />
+    <Compile Include="PEG\Parser\Rules\MatchOptional.cs" />
+    <Compile Include="PEG\Parser\Rules\AndRule.cs" />
+    <Compile Include="PEG\Parser\Rules\Leaf\RegexRule.cs" />
+    <Compile Include="PEG\Parser\Rules\MatchSequence.cs" />
+    <Compile Include="PEG\Parser\Rules\MatchZeroOrMore.cs" />
+    <Compile Include="PEG\Parser\Rules\Utils.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Grammars\PegProgram.txt" />
+    <Content Include="Grammars\SimpleGrammar.txt" />
+    <Content Include="Grammars\SimpleProgram.txt" />
+    <Content Include="Grammars\PegGrammar.txt" />
+    <Content Include="Grammars\todo.txt" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,3 @@
+﻿// ideas de cosas que se pueden hacer para extender la gramática
+
+* poder ponerle un nombre a cualquier regla, podría venir bien para depurar
