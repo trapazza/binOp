@@ -62,7 +62,7 @@ namespace BinOp.PEG
         /// </summary>
         public bool All( Rule[] _rules )
         {
-            return Parse( () =>
+            return ProcessBranch( () =>
             {
                 for( var n = 0; n < _rules.Length; ++n )
                     if( !_rules[ n ].Apply( this ) )
@@ -76,7 +76,7 @@ namespace BinOp.PEG
         /// </summary>
         public bool Any( Rule[] _rules )
         {
-            return Parse( () =>
+            return ProcessBranch( () =>
             {
                 for( var n = 0; n < _rules.Length; n++ )
                     if( _rules[ n ].Apply( this ) )
@@ -89,7 +89,7 @@ namespace BinOp.PEG
         /// Creates a new branch for the current state then calls the provided match function.
         /// If matching is successful the new branch will become the current one. Other wise the current branch will stay the same.
         /// </summary>
-        private bool Parse( Func<bool> _matchFn )
+        private bool ProcessBranch( Func<bool> _matchFn )
         {
             Branch();
 

@@ -73,9 +73,9 @@ namespace BinOp.PEG
         {
             if( !_map.Contains( _rule ) )
             {
-                _map.Add(_rule);
+                _map.Add( _rule );
                 
-                if( _rule is AstNodeRule ) 
+                if( !mProductions.ContainsKey( _rule.Name ) && _rule is AstNodeRule ) 
                     mProductions.Add( _rule.Name, _rule.Child );
 
                 foreach( var child in _rule.Children )
